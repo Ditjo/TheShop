@@ -53,7 +53,7 @@
                 android:layout_height="wrap_content"
                 android:text="Hello World!" />
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_mainShopList"
+                android:id="@+id/rv_productList"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
         </LinearLayout>
@@ -74,15 +74,30 @@
     <LinearLayout
         android:id="@+id/drawer_mainMenu"
         android:layout_width="300dp"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_gravity="start"
         android:orientation="vertical"
         android:background="#ffffff"
         android:padding="16dp">
-        <TextView
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Home"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Shop"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="About Us"/>
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Main Menu"/>
+            android:src="@drawable/settings_cog"
+            android:contentDescription="Settings"
+            android:padding="10dp"
+            />
     </LinearLayout>
 
     <LinearLayout
@@ -97,6 +112,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Basket of Goodies"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="To Basket"/>
     </LinearLayout>
 
 </androidx.drawerlayout.widget.DrawerLayout>

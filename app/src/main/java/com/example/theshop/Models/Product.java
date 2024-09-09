@@ -2,67 +2,67 @@ package com.example.theshop.Models;
 
 import com.example.theshop.Categories;
 
-public class ShopItem {
+public class Product {
 
-    private int Id;
-    private String Title;
-    private String Description;
-    private double Price;
-    private int Amount;
+    private int id;
+    private String title;
+    private String description;
+    private double price;
+    private int amount;
     private int imageResId;
-    private Categories Category;
+    private Categories category;
 
-    public ShopItem() {
+    public Product() {
     }
 
-    public ShopItem(String title, String description, double price, int amount, int imageResId, Categories category) {
-//        Id = id;
-        Title = title;
-        Description = description;
-        Price = price;
-        Amount = amount;
+    public Product(String title, String description, double price, int amount, int imageResId, Categories category) {
+//        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.price = price;
+        this.amount = amount;
         this.imageResId = imageResId;
-        Category = category;
+        this.category = category;
     }
 
     public int getId() {
-        return Id;
+        return id;
     }
 
     public void setId(int id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getTitle() {
-        return Title;
+        return title;
     }
 
     public void setTitle(String title) {
-        Title = title;
+        this.title = title;
     }
 
     public String getDescription() {
-        return Description;
+        return description;
     }
 
     public void setDescription(String description) {
-        Description = description;
+        this.description = description;
     }
 
     public double getPrice() {
-        return Price;
+        return price;
     }
 
     public void setPrice(double price) {
-        Price = price;
+        this.price = price;
     }
 
     public int getAmount() {
-        return Amount;
+        return amount;
     }
 
     public void setAmount(int amount) {
-        Amount = amount;
+        this.amount = amount;
     }
 
     public int getImageResId() {
@@ -74,10 +74,10 @@ public class ShopItem {
     }
 
     public Categories getCategory() {
-        return Category;
+        return category;
     }
 
     public void setCategory(Categories category) {
-        Category = category;
+        this.category = category;
     }
 }

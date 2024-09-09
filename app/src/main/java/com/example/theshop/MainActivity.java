@@ -1,9 +1,10 @@
 package com.example.theshop;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
+import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.GravityCompat;
@@ -13,9 +14,18 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.theshop.Adapters.ShopItemAdapter;
-import com.example.theshop.Models.ShopItem;
+import com.example.theshop.Models.Product;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,9 +34,11 @@ public class MainActivity extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private ImageView iv_mainMenu, iv_basket;
 
-    private RecyclerView rv_mainShopList;
-    private List<ShopItem> shopItemList;
+    private RecyclerView rv_productList;
+    private List<Product> productList = new ArrayList<>();
 
+    private String ApiUrl = "http://192.168.0.19:8080/product";
+    private RequestQueue requestQueue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +50,12 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        shopItemList = initMockData();
+
+        requestQueue = Volley.newRequestQueue(this);
+
+        getShopProducts();
+
+//        productList = initMockData();
 
         initGui();
         setGuiListeners();
@@ -49,17 +66,45 @@ public class MainActivity extends AppCompatActivity {
         iv_mainMenu = findViewById(R.id.iv_mainMenu);
         iv_basket = findViewById(R.id.iv_basket);
 
-        rv_mainShopList = findViewById(R.id.rv_mainShopList);
-        int numberOfColumns = 2;
-        rv_mainShopList.setLayoutManager(new GridLayoutManager(this, numberOfColumns));
-        ShopItemAdapter adapter = new ShopItemAdapter(this, shopItemList);
-        rv_mainShopList.setAdapter(adapter);
+        rv_productList = findViewById(R.id.rv_productList);
+
+        setAdapterToProductList();
 
     }
 
     void setGuiListeners(){
         iv_mainMenu.setOnClickListener(x -> mainMenuDrawer());
         iv_basket.setOnClickListener(x -> basketDrawer());
+    }
+
+    void setAdapterToProductList(){
+        int numberOfColumns = 3;
+        rv_productList.setLayoutManager(new GridLayoutManager(this, numberOfColumns));
+        ShopItemAdapter adapter = new ShopItemAdapter(this, productList);
+        rv_productList.setAdapter(adapter);
+    }
+
+    void getShopProducts(){
+        StringRequest request = new StringRequest(
+                Request.Method.GET,
+                ApiUrl,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Type listType = new TypeToken<List<Product>>() {}.getType();
+                        List<Product> products = new Gson().fromJson(response, listType);
+                        productList = products;
+                        setAdapterToProductList();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e(">>> Volley", "onGetErrorResponse", error);
+                    }
+                }
+        );
+        requestQueue.add(request);
     }
 
     void mainMenuDrawer(){
@@ -78,11 +123,14 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    List<ShopItem> initMockData(){
-        List<ShopItem> list = new ArrayList<>();
-        list.add(new ShopItem("Item 1", "Very Good Description 1", 1, 1, R.drawable.ic_launcher_background, Categories.DOCUMENTS));
-        list.add(new ShopItem("Item 2", "Very Good Description 2", 20, 11, R.drawable.ic_launcher_background, Categories.ELECTRONIC));
-        list.add(new ShopItem("Item 3", "Very Good Description 3", 300, 111, R.drawable.ic_launcher_background, Categories.OTHER));
+    List<Product> initMockData(){
+        List<Product> list = new ArrayList<>();
+        list.add(new Product("Item 1", "Very Good Description 1", 1, 1, R.drawable.ic_launcher_background, Categories.DOCUMENTS));
+        list.add(new Product("Item 2", "Very Good Description 2", 20, 11, R.drawable.ic_launcher_background, Categories.ELECTRONIC));
+        list.add(new Product("Item 3", "Very Good Description 3", 300, 111, R.drawable.ic_launcher_background, Categories.OTHER));
+        list.add(new Product("Item 4", "Very Good Description 4", 4, 4, R.drawable.ic_launcher_background, Categories.DOCUMENTS));
+        list.add(new Product("Item 5", "Very Good Description 5", 50, 55, R.drawable.ic_launcher_background, Categories.ELECTRONIC));
+        list.add(new Product("Item 6", "Very Good Description 6", 600, 666, R.drawable.ic_launcher_background, Categories.OTHER));
         return list;
     }
 }

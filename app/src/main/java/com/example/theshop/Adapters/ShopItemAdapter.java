@@ -12,7 +12,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.theshop.Models.ShopItem;
+import com.example.theshop.Models.Product;
 import com.example.theshop.R;
 
 import java.util.List;
@@ -21,30 +21,33 @@ import java.util.List;
 public class ShopItemAdapter extends RecyclerView.Adapter<ShopItemAdapter.ShopItemViewHolder> {
 
     private Context context;
-    private List<ShopItem> shopItemList;
+    private List<Product> productList;
 
-    public ShopItemAdapter(Context context, List<ShopItem> shopItemList){
+    public ShopItemAdapter(Context context, List<Product> productList){
         this.context = context;
-        this.shopItemList = shopItemList;
+        this.productList = productList;
     }
 
     @NonNull
     @Override
     public ShopItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.shop_list_item, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.product_item, parent, false);
         return new ShopItemViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ShopItemAdapter.ShopItemViewHolder holder, int position) {
-        ShopItem shopItem = shopItemList.get(position);
+        Product product = productList.get(position);
 
-        holder.shopItemTitle.setText(shopItem.getTitle());
-        holder.shopItemCategory.setText(shopItem.getCategory().toString());
-        holder.shopItemAmount.setText("Amount: " + shopItem.getAmount());
-        holder.shopItemPrice.setText("Price: $" + shopItem.getPrice());
+        holder.shopItemTitle.setText(product.getTitle());
+        if(product.getCategory() != null){
+            holder.shopItemCategory.setText(product.getCategory().toString());
+        }
 
-        holder.shopItemImage.setImageResource(shopItem.getImageResId());
+        holder.shopItemAmount.setText("Amount: " + product.getAmount());
+        holder.shopItemPrice.setText("Price: $" + product.getPrice());
+
+        holder.shopItemImage.setImageResource(product.getImageResId());
 
         holder.addToBasketButton.setOnClickListener(x -> {
             Toast.makeText(context, "TEST WIP: Item added To Basket", Toast.LENGTH_SHORT).show();
@@ -53,7 +56,7 @@ public class ShopItemAdapter extends RecyclerView.Adapter<ShopItemAdapter.ShopIt
 
     @Override
     public int getItemCount() {
-        return shopItemList.size();
+        return productList.size();
     }
 
     public static class ShopItemViewHolder extends RecyclerView.ViewHolder{
