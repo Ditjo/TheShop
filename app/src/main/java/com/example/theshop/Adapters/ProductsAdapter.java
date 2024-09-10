@@ -10,20 +10,22 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.StringRes;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.theshop.Models.Product;
 import com.example.theshop.R;
+import com.example.theshop.data.Data;
 
 import java.util.List;
 
 
-public class ShopItemAdapter extends RecyclerView.Adapter<ShopItemAdapter.ShopItemViewHolder> {
+public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ShopItemViewHolder> {
 
     private Context context;
     private List<Product> productList;
 
-    public ShopItemAdapter(Context context, List<Product> productList){
+    public ProductsAdapter(Context context, List<Product> productList){
         this.context = context;
         this.productList = productList;
     }
@@ -36,7 +38,7 @@ public class ShopItemAdapter extends RecyclerView.Adapter<ShopItemAdapter.ShopIt
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ShopItemAdapter.ShopItemViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ProductsAdapter.ShopItemViewHolder holder, int position) {
         Product product = productList.get(position);
 
         holder.shopItemTitle.setText(product.getTitle());
@@ -48,10 +50,15 @@ public class ShopItemAdapter extends RecyclerView.Adapter<ShopItemAdapter.ShopIt
         holder.shopItemPrice.setText("Price: $" + product.getPrice());
 
         holder.shopItemImage.setImageResource(product.getImageResId());
-
-        holder.addToBasketButton.setOnClickListener(x -> {
-            Toast.makeText(context, "TEST WIP: Item added To Basket", Toast.LENGTH_SHORT).show();
-        });
+        if(product.getAmount() <= 0){
+            holder.addToBasketButton.setEnabled(false);
+            holder.addToBasketButton.setText(R.string.productItem_Out);
+        }
+        else{
+            holder.addToBasketButton.setEnabled(true);
+            holder.addToBasketButton.setText(R.string.productItem_Add);
+        }
+        holder.addToBasketButton.setOnClickListener(x -> addItemToBasket(product, position));
     }
 
     @Override
@@ -73,5 +80,12 @@ public class ShopItemAdapter extends RecyclerView.Adapter<ShopItemAdapter.ShopIt
             shopItemPrice = itemView.findViewById(R.id.sli_Price);
             addToBasketButton  = itemView.findViewById(R.id.sli_btn_addToBasket);
         }
+    }
+
+    void addItemToBasket(Product item, int postion){
+        Data.addItemToBasket(item);
+        item.setAmount(item.getAmount()-1);
+        notifyItemChanged(postion);
+        Toast.makeText(context, item.getTitle() + " added to basket!", Toast.LENGTH_SHORT).show();
     }
 }

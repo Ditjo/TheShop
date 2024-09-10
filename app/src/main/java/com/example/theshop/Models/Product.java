@@ -1,6 +1,6 @@
 package com.example.theshop.Models;
 
-import com.example.theshop.Categories;
+import com.example.theshop.Enums.Categories;
 
 public class Product {
 

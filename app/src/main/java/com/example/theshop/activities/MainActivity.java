@@ -1,9 +1,10 @@
-package com.example.theshop;
+package com.example.theshop.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -12,6 +13,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.Request;
@@ -20,8 +22,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.theshop.Adapters.ShopItemAdapter;
+import com.example.theshop.Adapters.ProductsAdapter;
 import com.example.theshop.Models.Product;
+import com.example.theshop.R;
+import com.example.theshop.data.Data;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -32,9 +36,10 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
-    private ImageView iv_mainMenu, iv_basket;
+    private ImageView iv_mainMenu, iv_basket, iv_settings;
+    private Button btn_goToBasket;
 
-    private RecyclerView rv_productList;
+    private RecyclerView rv_productList, rv_drawBasket;
     private List<Product> productList = new ArrayList<>();
 
     private String ApiUrl = "http://192.168.0.19:8080/product";
@@ -53,9 +58,9 @@ public class MainActivity extends AppCompatActivity {
 
         requestQueue = Volley.newRequestQueue(this);
 
-        getShopProducts();
+//        getShopProducts();
 
-//        productList = initMockData();
+        productList = Data.initMockData();
 
         initGui();
         setGuiListeners();
@@ -65,8 +70,11 @@ public class MainActivity extends AppCompatActivity {
         drawerLayout = findViewById(R.id.main);
         iv_mainMenu = findViewById(R.id.iv_mainMenu);
         iv_basket = findViewById(R.id.iv_basket);
+        iv_settings = findViewById(R.id.iv_settings);
+        btn_goToBasket = findViewById(R.id.btn_goToBasket);
 
         rv_productList = findViewById(R.id.rv_productList);
+        rv_drawBasket = findViewById(R.id.rv_drawBasket);
 
         setAdapterToProductList();
 
@@ -75,13 +83,20 @@ public class MainActivity extends AppCompatActivity {
     void setGuiListeners(){
         iv_mainMenu.setOnClickListener(x -> mainMenuDrawer());
         iv_basket.setOnClickListener(x -> basketDrawer());
+        iv_settings.setOnClickListener(x -> onSettingsClicked());
+        btn_goToBasket.setOnClickListener(x -> onGoToBasketClicked());
     }
 
     void setAdapterToProductList(){
         int numberOfColumns = 3;
         rv_productList.setLayoutManager(new GridLayoutManager(this, numberOfColumns));
-        ShopItemAdapter adapter = new ShopItemAdapter(this, productList);
+        ProductsAdapter adapter = new ProductsAdapter(this, productList);
         rv_productList.setAdapter(adapter);
+    }
+
+    void setAdapterToDrawBasketList(){
+        rv_drawBasket.setLayoutManager(new LinearLayoutManager(this));
+
     }
 
     void getShopProducts(){
@@ -123,14 +138,14 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    List<Product> initMockData(){
-        List<Product> list = new ArrayList<>();
-        list.add(new Product("Item 1", "Very Good Description 1", 1, 1, R.drawable.ic_launcher_background, Categories.DOCUMENTS));
-        list.add(new Product("Item 2", "Very Good Description 2", 20, 11, R.drawable.ic_launcher_background, Categories.ELECTRONIC));
-        list.add(new Product("Item 3", "Very Good Description 3", 300, 111, R.drawable.ic_launcher_background, Categories.OTHER));
-        list.add(new Product("Item 4", "Very Good Description 4", 4, 4, R.drawable.ic_launcher_background, Categories.DOCUMENTS));
-        list.add(new Product("Item 5", "Very Good Description 5", 50, 55, R.drawable.ic_launcher_background, Categories.ELECTRONIC));
-        list.add(new Product("Item 6", "Very Good Description 6", 600, 666, R.drawable.ic_launcher_background, Categories.OTHER));
-        return list;
+    void onSettingsClicked(){
+        Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
+        startActivity(intent);
     }
+
+    void onGoToBasketClicked(){
+        Intent intent = new Intent(getApplicationContext(), BasketActivity.class);
+        startActivity(intent);
+    }
+
 }
