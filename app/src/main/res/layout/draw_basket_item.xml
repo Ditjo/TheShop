@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="5dp"
+    >
+    <ImageView
+        android:id="@+id/drawBasket_image"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:contentDescription="Image"
+        android:src="@drawable/ic_launcher_background"
+        />
+    <TextView
+        android:id="@+id/drawBasket_title"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:layout_weight="1"/>
+    <TextView
+        android:id="@+id/drawBasket_amount"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:layout_weight="1"/>
+    <TextView
+        android:id="@+id/drawBasket_price"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:layout_weight="1"/>
+    <ImageView
+        android:id="@+id/drawBasket_btn_remove"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:contentDescription="Remove from Basket"
+        android:src="@drawable/remove_item"/>
+</LinearLayout>

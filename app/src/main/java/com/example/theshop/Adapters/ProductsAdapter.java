@@ -1,6 +1,7 @@
 package com.example.theshop.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,11 +11,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.StringRes;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.theshop.Models.Product;
 import com.example.theshop.R;
+import com.example.theshop.Activities.ProductOverviewActivity;
 import com.example.theshop.data.Data;
 
 import java.util.List;
@@ -59,6 +60,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ShopIt
             holder.addToBasketButton.setText(R.string.productItem_Add);
         }
         holder.addToBasketButton.setOnClickListener(x -> addItemToBasket(product, position));
+        holder.sli_product_item.setOnClickListener(x -> showProductOverview(product));
     }
 
     @Override
@@ -70,6 +72,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ShopIt
         ImageView shopItemImage;
         TextView shopItemTitle, shopItemCategory, shopItemAmount, shopItemPrice;
         Button addToBasketButton;
+        View sli_product_item;
 
         public ShopItemViewHolder(@NonNull View itemView){
             super(itemView);
@@ -79,13 +82,21 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ShopIt
             shopItemAmount = itemView.findViewById(R.id.sli_Amount);
             shopItemPrice = itemView.findViewById(R.id.sli_Price);
             addToBasketButton  = itemView.findViewById(R.id.sli_btn_addToBasket);
+            sli_product_item = itemView.findViewById(R.id.sli_product_item);
         }
     }
 
     void addItemToBasket(Product item, int postion){
-        Data.addItemToBasket(item);
         item.setAmount(item.getAmount()-1);
+        Data.addItemToBasket(item);
         notifyItemChanged(postion);
+
         Toast.makeText(context, item.getTitle() + " added to basket!", Toast.LENGTH_SHORT).show();
+    }
+
+    void showProductOverview(Product product){
+        Intent intent = new Intent(context.getApplicationContext(), ProductOverviewActivity.class);
+        intent.putExtra("product", product);
+        context.startActivity(intent);
     }
 }

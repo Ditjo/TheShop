@@ -2,7 +2,9 @@ package com.example.theshop.Models;
 
 import com.example.theshop.Enums.Categories;
 
-public class Product {
+import java.io.Serializable;
+
+public class Product implements Serializable {
 
     private int id;
     private String title;
@@ -17,6 +19,16 @@ public class Product {
 
     public Product(String title, String description, double price, int amount, int imageResId, Categories category) {
 //        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.price = price;
+        this.amount = amount;
+        this.imageResId = imageResId;
+        this.category = category;
+    }
+
+    public Product(int id, String title, String description, double price, int amount, int imageResId, Categories category) {
+        this.id = id;
         this.title = title;
         this.description = description;
         this.price = price;

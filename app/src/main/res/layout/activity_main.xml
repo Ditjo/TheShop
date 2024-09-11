@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.MainActivity">
+    tools:context=".Activities.MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -136,6 +136,7 @@
             android:id="@+id/rv_drawBasket"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+
             />
         <Button
             android:id="@+id/btn_goToBasket"

@@ -1,10 +1,8 @@
-package com.example.theshop.activities;
+package com.example.theshop.Activities;
 
-import android.media.Image;
 import android.os.Bundle;
 import android.widget.ImageView;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;

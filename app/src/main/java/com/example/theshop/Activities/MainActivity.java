@@ -1,4 +1,4 @@
-package com.example.theshop.activities;
+package com.example.theshop.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -22,6 +22,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.theshop.Adapters.DrawBasketAdapter;
 import com.example.theshop.Adapters.ProductsAdapter;
 import com.example.theshop.Models.Product;
 import com.example.theshop.R;
@@ -77,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
         rv_drawBasket = findViewById(R.id.rv_drawBasket);
 
         setAdapterToProductList();
+//        setAdapterToDrawBasketList();
 
     }
 
@@ -96,7 +98,8 @@ public class MainActivity extends AppCompatActivity {
 
     void setAdapterToDrawBasketList(){
         rv_drawBasket.setLayoutManager(new LinearLayoutManager(this));
-
+        DrawBasketAdapter adapter = new DrawBasketAdapter(this, Data.getShoppingCart());
+        rv_drawBasket.setAdapter(adapter);
     }
 
     void getShopProducts(){
@@ -134,6 +137,7 @@ public class MainActivity extends AppCompatActivity {
         if(drawerLayout.isDrawerOpen(GravityCompat.END)){
             drawerLayout.closeDrawer(GravityCompat.END);
         } else {
+            setAdapterToDrawBasketList();
             drawerLayout.openDrawer(GravityCompat.END);
         }
     }
@@ -144,8 +148,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void onGoToBasketClicked(){
-        Intent intent = new Intent(getApplicationContext(), BasketActivity.class);
-        startActivity(intent);
+            Intent intent = new Intent(getApplicationContext(), BasketActivity.class);
+            startActivity(intent);
     }
 
 }

@@ -1,4 +1,4 @@
-package com.example.theshop.activities;
+package com.example.theshop.Activities;
 
 import android.os.Bundle;
 import android.widget.ImageView;
