@@ -12,8 +12,8 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:text="LNAA"
-        android:textSize="30dp"
+        android:text="FBC"
+        android:textSize="30sp"
         />
     <LinearLayout
         android:layout_width="0dp"

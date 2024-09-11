@@ -24,23 +24,21 @@
                 android:layout_weight="1"
                 android:contentDescription="Main Menu"
                 android:src="@drawable/main_menu"/>
-            <TextView
+            <ImageView
                 android:id="@+id/iv_logo"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="9"
-                android:gravity="center"
-                android:text="FBC"
-                android:textSize="30sp"
+                android:layout_weight="8"
+                android:contentDescription="Main Menu"
 
                 />
-<!--            <ImageView-->
-<!--                android:id="@+id/iv_basket"-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:layout_weight="1"-->
-<!--                android:contentDescription="Main Menu"-->
-<!--                android:src="@drawable/shopping_basket"/>-->
+            <ImageView
+                android:id="@+id/iv_basket"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:contentDescription="Main Menu"
+                android:src="@drawable/shopping_basket"/>
 
         </LinearLayout>
 
@@ -53,15 +51,11 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Current Mission!" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Your Equipment!" />
-<!--            <androidx.recyclerview.widget.RecyclerView-->
-<!--                android:id="@+id/rv_productList"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="match_parent"/>-->
+                android:text="Hello World!" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_productList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
         </LinearLayout>
 
         <LinearLayout
@@ -69,11 +63,11 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:orientation="horizontal">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="Status Bar"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="Status Bar"/>
         </LinearLayout>
     </LinearLayout>
 
@@ -97,29 +91,17 @@
 <!--            style="@style/MainMenu"-->
 <!--            android:text="Home"/>-->
 <!--        <Button-->
-<!--            android:id="@+id/btn_mission"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            style="@style/MainMenu"-->
-<!--            android:text="Mission"/>-->
-<!--        <Button-->
 <!--            android:id="@+id/btn_shop"-->
 <!--            android:layout_width="match_parent"-->
 <!--            android:layout_height="wrap_content"-->
 <!--            style="@style/MainMenu"-->
 <!--            android:text="Shop"/>-->
 <!--        <Button-->
-<!--            android:id="@+id/btn_contacts"-->
+<!--            android:id="@+id/btn_about"-->
 <!--            android:layout_width="match_parent"-->
 <!--            android:layout_height="wrap_content"-->
 <!--            style="@style/MainMenu"-->
-<!--            android:text="Contacts"/>-->
-<!--        <Button-->
-<!--            android:id="@+id/btn_userProfile"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            style="@style/MainMenu"-->
-<!--            android:text="User Profile"/>-->
+<!--            android:text="About Us"/>-->
 <!--        <LinearLayout-->
 <!--            android:layout_width="match_parent"-->
 <!--            android:layout_height="wrap_content"-->
@@ -143,30 +125,30 @@
 <!--        </LinearLayout>-->
     </LinearLayout>
 
-<!--    <LinearLayout-->
-<!--        android:id="@+id/drawer_basket"-->
-<!--        android:layout_width="300dp"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:layout_gravity="end"-->
-<!--        android:orientation="vertical"-->
-<!--        android:background="#ffffff"-->
-<!--        android:padding="16dp">-->
-<!--        <TextView-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="Basket of Goodies"/>-->
-<!--        <androidx.recyclerview.widget.RecyclerView-->
-<!--            android:id="@+id/rv_drawBasket"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
+    <LinearLayout
+        android:id="@+id/drawer_basket"
+        android:layout_width="300dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="end"
+        android:orientation="vertical"
+        android:background="#ffffff"
+        android:padding="16dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Basket of Goodies"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_drawBasket"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
 
-<!--            />-->
-<!--        <Button-->
-<!--            android:id="@+id/btn_goToBasket"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_margin="10dp"-->
-<!--            android:text="To Basket"/>-->
-<!--    </LinearLayout>-->
+            />
+        <Button
+            android:id="@+id/btn_goToBasket"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="To Basket"/>
+    </LinearLayout>
 
 </androidx.drawerlayout.widget.DrawerLayout>

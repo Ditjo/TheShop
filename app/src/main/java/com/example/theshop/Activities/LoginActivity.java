@@ -45,6 +45,7 @@ public class LoginActivity extends AppCompatActivity {
         String username = logon_username.getText().toString();
         String password = logon_password.getText().toString();
         if(username.equals(Logon.userName) && password.equals(Logon.password)){
+            Logon.isLoggedIn = true;
             finish();
         } else {
             logon_username.setText("");

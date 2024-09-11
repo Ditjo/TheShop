@@ -6,6 +6,7 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.GravityCompat;
@@ -30,7 +31,6 @@ import com.example.theshop.Fragments.MainMenuFragment;
 import com.example.theshop.Models.Product;
 import com.example.theshop.R;
 import com.example.theshop.data.Data;
-import com.example.theshop.data.Logon;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -38,28 +38,33 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class ShopActivity extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
-    private ImageView iv_mainMenu, iv_settings;
-    private Button btn_shop;
+    private ImageView iv_mainMenu, iv_basket, iv_settings;
+    private Button btn_goToBasket;
+
+    private RecyclerView rv_productList, rv_drawBasket;
+    private List<Product> productList = new ArrayList<>();
+
+    private String ApiUrl = "http://192.168.0.19:8080/product";
+    private RequestQueue requestQueue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_shop);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
-        Logon.isDebugLogin = true;
+        requestQueue = Volley.newRequestQueue(this);
 
-        if (!Logon.isLoggedIn && !Logon.isDebugLogin){
-            openLogonActivity();
-        }
+//        getShopProducts();
+        productList = Data.initMockData();
 
         initGui();
         initMainMenuFragment();
@@ -69,20 +74,23 @@ public class MainActivity extends AppCompatActivity {
     void initGui(){
         drawerLayout = findViewById(R.id.main);
         iv_mainMenu = findViewById(R.id.iv_mainMenu);
+        iv_basket = findViewById(R.id.iv_basket);
 //        iv_settings = findViewById(R.id.iv_settings);
-//        btn_shop = findViewById(R.id.btn_shop);
+        btn_goToBasket = findViewById(R.id.btn_goToBasket);
 
-    }
+        rv_productList = findViewById(R.id.rv_productList);
+        rv_drawBasket = findViewById(R.id.rv_drawBasket);
 
-    void openLogonActivity(){
-        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-        startActivity(intent);
+        setAdapterToProductList();
+//        setAdapterToDrawBasketList();
+
     }
 
     void setGuiListeners(){
         iv_mainMenu.setOnClickListener(x -> mainMenuDrawer());
+        iv_basket.setOnClickListener(x -> basketDrawer());
 //        iv_settings.setOnClickListener(x -> onSettingsClicked());
-//        btn_shop.setOnClickListener(x -> onShopClicked());
+        btn_goToBasket.setOnClickListener(x -> onGoToBasketClicked());
     }
 
     void initMainMenuFragment(){
@@ -92,6 +100,41 @@ public class MainActivity extends AppCompatActivity {
         ft.commit();
     }
 
+    void setAdapterToProductList(){
+        int numberOfColumns = 3;
+        rv_productList.setLayoutManager(new GridLayoutManager(this, numberOfColumns));
+        ProductsAdapter adapter = new ProductsAdapter(this, productList);
+        rv_productList.setAdapter(adapter);
+    }
+
+    void setAdapterToDrawBasketList(){
+        rv_drawBasket.setLayoutManager(new LinearLayoutManager(this));
+        DrawBasketAdapter adapter = new DrawBasketAdapter(this, Data.getShoppingCart());
+        rv_drawBasket.setAdapter(adapter);
+    }
+
+    void getShopProducts(){
+        StringRequest request = new StringRequest(
+                Request.Method.GET,
+                ApiUrl,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Type listType = new TypeToken<List<Product>>() {}.getType();
+                        List<Product> products = new Gson().fromJson(response, listType);
+                        productList = products;
+                        setAdapterToProductList();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e(">>> Volley", "onGetErrorResponse", error);
+                    }
+                }
+        );
+        requestQueue.add(request);
+    }
 
     void mainMenuDrawer(){
         if(drawerLayout.isDrawerOpen(GravityCompat.START)){
@@ -101,17 +144,22 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
+    void basketDrawer(){
+        if(drawerLayout.isDrawerOpen(GravityCompat.END)){
+            drawerLayout.closeDrawer(GravityCompat.END);
+        } else {
+            setAdapterToDrawBasketList();
+            drawerLayout.openDrawer(GravityCompat.END);
+        }
+    }
 
     void onSettingsClicked(){
         Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
         startActivity(intent);
     }
 
-    void onShopClicked(){
-        Intent intent = new Intent(getApplicationContext(), ShopActivity.class);
+    void onGoToBasketClicked(){
+        Intent intent = new Intent(getApplicationContext(), BasketActivity.class);
         startActivity(intent);
     }
-
-
 }
