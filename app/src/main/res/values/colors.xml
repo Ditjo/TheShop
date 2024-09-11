@@ -5,5 +5,5 @@
     <color name="acdcRed">#DE1E26</color>
     <color name="acdcYellow">#FDEC30</color>
     <color name="acdcBlack">#04050A</color>
-
+    <color name="backgroundGray">#EEEEEE</color>
 </resources>

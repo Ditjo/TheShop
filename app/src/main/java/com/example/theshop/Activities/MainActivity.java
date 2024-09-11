@@ -27,6 +27,7 @@ import com.example.theshop.Adapters.ProductsAdapter;
 import com.example.theshop.Models.Product;
 import com.example.theshop.R;
 import com.example.theshop.data.Data;
+import com.example.theshop.data.Logon;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -57,8 +58,16 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        requestQueue = Volley.newRequestQueue(this);
+//        Logon.isDebugLogin = true;
 
+        if (!Logon.isLoggedIn || Logon.isDebugLogin){
+            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+            startActivity(intent);
+        }
+
+
+        //Moved to Shop Activity
+        requestQueue = Volley.newRequestQueue(this);
 //        getShopProducts();
 
         productList = Data.initMockData();
