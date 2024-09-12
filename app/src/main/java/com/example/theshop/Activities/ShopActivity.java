@@ -28,6 +28,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.theshop.Adapters.DrawBasketAdapter;
 import com.example.theshop.Adapters.ProductsAdapter;
 import com.example.theshop.Fragments.MainMenuFragment;
+import com.example.theshop.Interfaces.EventRaiser;
 import com.example.theshop.Models.Product;
 import com.example.theshop.R;
 import com.example.theshop.data.Data;
@@ -49,6 +50,9 @@ public class ShopActivity extends AppCompatActivity {
 
     private String ApiUrl = "http://192.168.0.19:8080/product";
     private RequestQueue requestQueue;
+
+    public ProductsAdapter productsAdapter;
+    public DrawBasketAdapter drawBasketAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,14 +107,20 @@ public class ShopActivity extends AppCompatActivity {
     void setAdapterToProductList(){
         int numberOfColumns = 3;
         rv_productList.setLayoutManager(new GridLayoutManager(this, numberOfColumns));
-        ProductsAdapter adapter = new ProductsAdapter(this, productList);
-        rv_productList.setAdapter(adapter);
+        productsAdapter = new ProductsAdapter(this, productList);
+        rv_productList.setAdapter(productsAdapter);
     }
 
     void setAdapterToDrawBasketList(){
         rv_drawBasket.setLayoutManager(new LinearLayoutManager(this));
-        DrawBasketAdapter adapter = new DrawBasketAdapter(this, Data.getShoppingCart());
-        rv_drawBasket.setAdapter(adapter);
+        drawBasketAdapter = new DrawBasketAdapter(this, Data.getShoppingCart());
+//        drawBasketAdapter.setEventListener(new EventRaiser() {
+//            @Override
+//            public void onEventRaised(String message) {
+//                productsAdapter.notifyDataSetChanged();
+//            }
+//        });
+        rv_drawBasket.setAdapter(drawBasketAdapter);
     }
 
     void getShopProducts(){
@@ -153,10 +163,10 @@ public class ShopActivity extends AppCompatActivity {
         }
     }
 
-    void onSettingsClicked(){
-        Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
-        startActivity(intent);
-    }
+//    void onSettingsClicked(){
+//        Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
+//        startActivity(intent);
+//    }
 
     void onGoToBasketClicked(){
         Intent intent = new Intent(getApplicationContext(), BasketActivity.class);

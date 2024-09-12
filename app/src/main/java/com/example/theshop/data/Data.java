@@ -1,5 +1,6 @@
 package com.example.theshop.data;
 
+import com.example.theshop.Activities.ShopActivity;
 import com.example.theshop.Enums.Categories;
 import com.example.theshop.Models.Product;
 import com.example.theshop.R;
@@ -35,16 +36,33 @@ public class Data {
     }
 
     public static void removeItemFromBasket(Product item){
-        for (Product p : ShoppingCart){
+
+        for (int i = 0; i < ShoppingCart.size(); i++) {
+
+            Product p = ShoppingCart.get(i);
             if(p.getId() == item.getId()){
                 if(p.getAmount() > 1){
                     p.setAmount(p.getAmount() - 1);
                 } else{
                     ShoppingCart.remove(item);
                 }
+//                for (int l = 0; l < ProductList.size(); l++){
+//
+//                    Product pl = ProductList.get(l);
+//                    if (p.getId() == pl.getId()){
+//                        pl.setAmount(pl.getAmount()+1);
+//                    }
+//                }
             }
         }
     }
+
+    private static List<Product> ProductList = new ArrayList<>();
+
+    public static List<Product> getProductList() { return ProductList; }
+    public static void setProductList(List<Product> list) { ProductList = list; }
+
+
 
     public static List<Product> initMockData(){
         List<Product> list = new ArrayList<>();

@@ -18,16 +18,18 @@ import com.example.theshop.R;
 import com.example.theshop.Activities.ProductOverviewActivity;
 import com.example.theshop.data.Data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
 public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ShopItemViewHolder> {
 
-    private Context context;
+    public Context context;
     private List<Product> productList;
 
     public ProductsAdapter(Context context, List<Product> productList){
         this.context = context;
+        Data.setProductList(productList);
         this.productList = productList;
     }
 
@@ -91,7 +93,27 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ShopIt
         Data.addItemToBasket(item);
         notifyItemChanged(postion);
 
+//        notifyChanges();
+
         Toast.makeText(context, item.getTitle() + " added to basket!", Toast.LENGTH_SHORT).show();
+    }
+
+    public void returnItemToList(Product product, int position){
+
+        List<Product> templist = new ArrayList<>();
+        for(Product p : productList){
+            templist.add(p);
+        }
+        productList.clear();
+
+        for (Product p : templist){
+            if (p.getId() == product.getId()){
+                p.setAmount(p.getAmount()+1);
+            }
+        }
+        productList.clear();
+        productList.addAll(templist);
+        notifyItemChanged(position);
     }
 
     void showProductOverview(Product product){
