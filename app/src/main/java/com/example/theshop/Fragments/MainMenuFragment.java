@@ -12,7 +12,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.theshop.Activities.ContactActivity;
 import com.example.theshop.Activities.MainActivity;
+import com.example.theshop.Activities.MissionActivity;
+import com.example.theshop.Activities.ProfileActivity;
 import com.example.theshop.Activities.SettingsActivity;
 import com.example.theshop.Activities.ShopActivity;
 import com.example.theshop.R;
@@ -42,7 +45,10 @@ public class MainMenuFragment extends Fragment {
         iv_settings = context.findViewById(R.id.iv_settings);
 
         btn_home.setOnClickListener(x -> onNavigateToActivity(MainActivity.class));
+        btn_mission.setOnClickListener(x -> onNavigateToActivity(MissionActivity.class));
         btn_shop.setOnClickListener(x -> onNavigateToActivity(ShopActivity.class));
+        btn_contacts.setOnClickListener(x -> onNavigateToActivity(ContactActivity.class));
+        btn_userProfiler.setOnClickListener(x -> onNavigateToActivity(ProfileActivity.class));
         iv_settings.setOnClickListener(x -> onNavigateToActivity(SettingsActivity.class));
 
     }
