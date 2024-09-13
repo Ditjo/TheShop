@@ -12,6 +12,7 @@ public class Product implements Serializable {
     private double price;
     private int amount;
     private int imageResId;
+    private String imageUrl;
     private Categories category;
 
     public Product() {
@@ -34,6 +35,17 @@ public class Product implements Serializable {
         this.price = price;
         this.amount = amount;
         this.imageResId = imageResId;
+        this.category = category;
+    }
+
+    public Product(int id, String title, String description, double price, int amount, int imageResId, String imageUrl, Categories category) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.price = price;
+        this.amount = amount;
+        this.imageResId = imageResId;
+        this.imageUrl = imageUrl;
         this.category = category;
     }
 
@@ -91,5 +103,13 @@ public class Product implements Serializable {
 
     public void setCategory(Categories category) {
         this.category = category;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }

@@ -31,7 +31,7 @@ public class Data {
                 1,
                 item.getImageResId(),
                 item.getCategory());
-
+        p.setImageUrl(item.getImageUrl());
         ShoppingCart.add(p);
     }
 
@@ -67,11 +67,11 @@ public class Data {
     public static List<Product> initMockData(){
         List<Product> list = new ArrayList<>();
         list.add(new Product(1,"Item 1", "Very Good Description 1", 1, 1, R.drawable.ic_launcher_background, Categories.DOCUMENTS));
-        list.add(new Product(2,"Item 2", "Very Good Description 2", 20, 11, R.drawable.ic_launcher_background, Categories.ELECTRONIC));
-        list.add(new Product(3,"Item 3", "Very Good Description 3", 300, 111, R.drawable.ic_launcher_background, Categories.OTHER));
-        list.add(new Product(4,"Item 4", "Very Good Description 4", 4, 4, R.drawable.ic_launcher_background, Categories.DOCUMENTS));
-        list.add(new Product(5,"Item 5", "Very Good Description 5", 50, 55, R.drawable.ic_launcher_background, Categories.ELECTRONIC));
-        list.add(new Product(6,"Item 6", "Very Good Description 6", 600, 666, R.drawable.ic_launcher_background, Categories.OTHER));
+        list.add(new Product(2,"Item 2", "Very Good Description 2", 20, 11, R.drawable.ic_launcher_background, Categories.ELECTRONICS));
+        list.add(new Product(3,"Item 3", "Very Good Description 3", 300, 111, R.drawable.ic_launcher_background, Categories.OTHERS));
+        list.add(new Product(4,"Item 4", "Very Good Description 4", 4, 4, R.drawable.ic_launcher_background, Categories.TOOLS));
+        list.add(new Product(5,"Item 5", "Very Good Description 5", 50, 55, R.drawable.ic_launcher_background, Categories.ELECTRONICS));
+        list.add(new Product(6,"Item 6", "Very Good Description 6", 600, 666, R.drawable.ic_launcher_background, Categories.WEAPONS));
         return list;
     }
 }

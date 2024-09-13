@@ -1,8 +1,6 @@
 package com.example.theshop.Adapters;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.service.autofill.FillEventHistory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,13 +10,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.theshop.Activities.ShopActivity;
-import com.example.theshop.Interfaces.EventRaiser;
 import com.example.theshop.Models.Product;
 import com.example.theshop.R;
 import com.example.theshop.data.Data;
 
-import java.util.Date;
 import java.util.List;
 
 public class DrawBasketAdapter extends RecyclerView.Adapter<DrawBasketAdapter.ProductViewHolder> {
@@ -49,6 +46,12 @@ public class DrawBasketAdapter extends RecyclerView.Adapter<DrawBasketAdapter.Pr
         holder.drawBasket_amount.setText(String.valueOf(product.getAmount()));
         holder.drawBasket_price.setText("$" + product.getPrice());
 
+        if(product.getImageUrl() != null){
+            Glide.with(context)
+                    .load(product.getImageUrl())
+                    .into(holder.drawBasket_image);
+        }
+
         holder.drawBasket_btn_remove.setOnClickListener(x -> removeItemFromBasket(product, position));
 
     }
@@ -73,25 +76,11 @@ public class DrawBasketAdapter extends RecyclerView.Adapter<DrawBasketAdapter.Pr
         }
     }
 
-//    public void setEventListener(EventRaiser listener){
-//        this.listener = listener;
-//    }
-//
-//    public void raiseEvent(){
-//        if( listener != null){
-//            listener.onEventRaised("Event has been Raised!");
-//        }
-//    }
-
     void removeItemFromBasket(Product product, int position){
         Data.removeItemFromBasket(product);
-//        notifyItemChanged(position);
-//        notifyDataSetChanged();
         notifyItemRemoved(position);
         if (context instanceof ShopActivity){
             ((ShopActivity) context).productsAdapter.returnItemToList(product, position);
         }
-
-//        raiseEvent();
     }
 }

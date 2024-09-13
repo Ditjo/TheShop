@@ -11,7 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        style="@style/barsDesign">
     <ImageView
         android:id="@+id/iv_backArrow"
         android:layout_width="0dp"
@@ -19,19 +20,39 @@
         android:layout_weight="1"
         android:src="@drawable/arrow_left_back"
         />
-        <View
+        <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="9"
-            />
+            android:layout_weight="8"
+            android:gravity="center"
+            android:text="FBC"
+            style="@style/barsDesign"/>
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="11">
+        android:layout_weight="10">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Settings"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        style="@style/barsDesign">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/take_control"
+            style="@style/statusbar"
+            />
     </LinearLayout>
 </LinearLayout>

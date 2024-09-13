@@ -4,6 +4,7 @@
     <!--Product Listing-->
     <string name="productItem_Add">Add to Basket</string>
     <string name="productItem_Out">Out of Stock</string>
+    <string name="take_control">Take Control</string>
 
 
     <string name="lorem_ipsum">

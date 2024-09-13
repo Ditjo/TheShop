@@ -6,7 +6,6 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.GravityCompat;
@@ -28,7 +27,6 @@ import com.android.volley.toolbox.Volley;
 import com.example.theshop.Adapters.DrawBasketAdapter;
 import com.example.theshop.Adapters.ProductsAdapter;
 import com.example.theshop.Fragments.MainMenuFragment;
-import com.example.theshop.Interfaces.EventRaiser;
 import com.example.theshop.Models.Product;
 import com.example.theshop.R;
 import com.example.theshop.data.Data;
@@ -48,7 +46,7 @@ public class ShopActivity extends AppCompatActivity {
     private RecyclerView rv_productList, rv_drawBasket;
     private List<Product> productList = new ArrayList<>();
 
-    private String ApiUrl = "http://192.168.0.19:8080/product";
+    private String ApiUrl = "http://192.168.0.211:8080/product";
     private RequestQueue requestQueue;
 
     public ProductsAdapter productsAdapter;
@@ -67,8 +65,8 @@ public class ShopActivity extends AppCompatActivity {
 
         requestQueue = Volley.newRequestQueue(this);
 
-//        getShopProducts();
-        productList = Data.initMockData();
+        getShopProducts();
+//        productList = Data.initMockData();
 
         initGui();
         initMainMenuFragment();
@@ -79,21 +77,18 @@ public class ShopActivity extends AppCompatActivity {
         drawerLayout = findViewById(R.id.main);
         iv_mainMenu = findViewById(R.id.iv_mainMenu);
         iv_basket = findViewById(R.id.iv_basket);
-//        iv_settings = findViewById(R.id.iv_settings);
         btn_goToBasket = findViewById(R.id.btn_goToBasket);
 
         rv_productList = findViewById(R.id.rv_productList);
         rv_drawBasket = findViewById(R.id.rv_drawBasket);
 
         setAdapterToProductList();
-//        setAdapterToDrawBasketList();
 
     }
 
     void setGuiListeners(){
         iv_mainMenu.setOnClickListener(x -> mainMenuDrawer());
         iv_basket.setOnClickListener(x -> basketDrawer());
-//        iv_settings.setOnClickListener(x -> onSettingsClicked());
         btn_goToBasket.setOnClickListener(x -> onGoToBasketClicked());
     }
 
@@ -114,12 +109,6 @@ public class ShopActivity extends AppCompatActivity {
     void setAdapterToDrawBasketList(){
         rv_drawBasket.setLayoutManager(new LinearLayoutManager(this));
         drawBasketAdapter = new DrawBasketAdapter(this, Data.getShoppingCart());
-//        drawBasketAdapter.setEventListener(new EventRaiser() {
-//            @Override
-//            public void onEventRaised(String message) {
-//                productsAdapter.notifyDataSetChanged();
-//            }
-//        });
         rv_drawBasket.setAdapter(drawBasketAdapter);
     }
 
@@ -162,11 +151,6 @@ public class ShopActivity extends AppCompatActivity {
             drawerLayout.openDrawer(GravityCompat.END);
         }
     }
-
-//    void onSettingsClicked(){
-//        Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
-//        startActivity(intent);
-//    }
 
     void onGoToBasketClicked(){
         Intent intent = new Intent(getApplicationContext(), BasketActivity.class);

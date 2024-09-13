@@ -11,6 +11,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.bumptech.glide.Glide;
 import com.example.theshop.Models.Product;
 import com.example.theshop.R;
 
@@ -49,7 +50,13 @@ public class ProductOverviewActivity extends AppCompatActivity {
         ov_price.setText(String.valueOf(product.getPrice()));
         ov_amount.setText(String.valueOf(product.getAmount()));
         ov_description.setText(product.getDescription());
-        ov_image.setImageResource(product.getImageResId());
+
+        if(product.getImageUrl() != null){
+            Glide.with(getApplicationContext())
+                    .load(product.getImageUrl())
+                    .fitCenter()
+                    .into(ov_image);
+        }
 
         iv_backArrow = findViewById(R.id.iv_backArrow);
         iv_backArrow.setOnClickListener(x -> onClickBack());
